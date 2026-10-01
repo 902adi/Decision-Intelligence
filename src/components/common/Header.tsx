@@ -57,23 +57,30 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-surface/85 border-b border-line transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
-        {/* Wordmark */}
+        {/* Wordmark & Aesthetic Logo */}
         <div 
           onClick={() => { playClickSound(); setMode('landing'); }}
-          className="cursor-pointer group flex flex-col justify-center select-none"
-          title="Rakshak Home"
+          className="cursor-pointer group flex items-center gap-2.5 select-none"
+          title="RAKSHAK Home"
         >
-          <div className="flex items-center gap-1.5">
-            <span className="font-heading font-semibold text-lg sm:text-xl tracking-tight text-text group-hover:text-accent transition-colors">
-              Rakshak
-            </span>
-            <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded-md bg-surface-2 border border-line text-text-2">
-              {isLiveBackend ? t.app.live_data : t.app.demo_data}
+          {/* Glowing Emblem Logo */}
+          <div className="w-9 h-9 rounded-xl bg-surface-2 border border-accent/40 flex items-center justify-center text-accent shadow-[0_0_15px_-3px_rgba(127,181,176,0.35)] group-hover:border-accent transition-all">
+            <ShieldAlert className="w-5 h-5 text-accent" />
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-1.5">
+              <span className="font-heading font-black text-lg sm:text-xl tracking-wider text-text group-hover:text-accent transition-colors uppercase">
+                RAKSHAK
+              </span>
+              <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded-md bg-accent/15 border border-accent/30 text-accent font-bold">
+                {isLiveBackend ? 'LIVE' : 'SIM'}
+              </span>
+            </div>
+            <span className="text-[11px] font-devanagari font-bold bg-gradient-to-r from-accent via-accent-2 to-accent bg-clip-text text-transparent tracking-widest leading-none drop-shadow-xs">
+              रक्षक AI
             </span>
           </div>
-          <span className="text-[11px] font-devanagari text-text-2 tracking-wider leading-none">
-            रक्षक
-          </span>
         </div>
 
         {/* Center Mode Switcher (Citizen / Officer) */}
@@ -86,7 +93,7 @@ export const Header: React.FC = () => {
                 : 'text-text-2 hover:text-text hover:bg-surface'
             }`}
           >
-            {t.nav.citizen}
+            Citizen Mode
           </button>
           <button
             onClick={() => { playClickSound(); setMode('officer'); }}
@@ -96,14 +103,14 @@ export const Header: React.FC = () => {
                 : 'text-text-2 hover:text-text hover:bg-surface'
             }`}
           >
-            <span>{t.nav.officer}</span>
+            <span>Command Center</span>
             {isOfficerAuthenticated && (
               <span className="w-1.5 h-1.5 rounded-full bg-low animate-ping" />
             )}
           </button>
         </div>
 
-        {/* Right Tools: Officer profile info, Language, Sound FX, Theme, Settings */}
+        {/* Right Tools: Officer profile info, Sound FX, Theme, Settings */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Officer Auth Badge & Sign Out in Officer View */}
           {mode === 'officer' && isOfficerAuthenticated && (
@@ -148,30 +155,8 @@ export const Header: React.FC = () => {
             title="Open Phone Demo QR Code"
           >
             <Smartphone className="w-3.5 h-3.5 text-accent" />
-            <span className="hidden lg:inline">{t.officer.two_device_title.split(' ')[0]} Demo</span>
+            <span className="hidden lg:inline">Phone Demo</span>
           </button>
-
-          {/* Segmented Pill Language Toggle: EN | हिं | मरा with sliding thumb */}
-          <div className="flex items-center bg-surface-2 p-0.5 rounded-pill border border-line">
-            {(['en', 'hi', 'mr'] as Language[]).map((lang) => {
-              const label = lang === 'en' ? 'EN' : lang === 'hi' ? 'हिं' : 'मरा';
-              const isActive = language === lang;
-              return (
-                <button
-                  key={lang}
-                  onClick={() => handleLanguageChange(lang)}
-                  className={`px-2 py-1 text-xs rounded-pill transition-all duration-200 cursor-pointer ${
-                    isActive 
-                      ? 'bg-accent text-bg font-semibold shadow-xs' 
-                      : 'text-text-2 hover:text-text hover:bg-surface/50'
-                  }`}
-                  aria-label={`Switch to ${label}`}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
 
           {/* Sound FX Mute/Unmute Toggle */}
           <button

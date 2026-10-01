@@ -281,16 +281,16 @@ export const CitizenView: React.FC = () => {
         </div>
 
         {/* Shelter Image Preview */}
-        <div className="rounded-control overflow-hidden border border-line aspect-[21/9] relative">
+        <div className="rounded-control overflow-hidden border border-line aspect-[21/9] relative shadow-md">
           <img 
-            src="/images/relief_camp.jpg" 
-            alt="Relief camp facility" 
+            src="/images/citizen_shelter_center.jpg" 
+            alt="Rivergate community relief shelter and medical aid center" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-transparent to-transparent" />
           <div className="absolute bottom-2 left-3 right-3 flex justify-between text-[11px] text-text">
-            <span>Indoor dry sports arena &bull; Medical desk on site</span>
-            <span className="text-low font-semibold">Open & Welcoming</span>
+            <span className="font-medium">Indoor dry high-ground arena &bull; Medical desk on site</span>
+            <span className="text-low font-semibold font-mono">Open & Fully Stocked</span>
           </div>
         </div>
 

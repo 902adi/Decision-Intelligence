@@ -90,13 +90,13 @@ export const RakshakIntroBoot: React.FC<RakshakIntroBootProps> = ({ onComplete }
                 initial={{ y: 8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.15, duration: 0.4 }}
-                className="flex items-center justify-center gap-2"
+                className="flex items-center justify-center gap-3"
               >
-                <span className="font-heading text-2xl font-black tracking-tight text-white">
+                <span className="font-devanagari text-3xl font-black bg-gradient-to-r from-accent via-accent-2 to-accent bg-clip-text text-transparent tracking-widest drop-shadow-[0_0_25px_rgba(127,181,176,0.5)]">
                   रक्षक
                 </span>
-                <span className="text-accent/60 font-mono">·</span>
-                <span className="font-heading text-2xl font-extrabold tracking-widest text-accent uppercase">
+                <span className="text-accent/40 font-mono text-xl">·</span>
+                <span className="font-heading text-2xl font-black tracking-widest text-text uppercase">
                   RAKSHAK
                 </span>
               </motion.div>

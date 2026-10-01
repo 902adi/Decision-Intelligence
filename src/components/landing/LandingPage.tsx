@@ -29,20 +29,25 @@ export const LandingPage: React.FC = () => {
     <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 sm:py-16 space-y-20 pb-28">
       {/* 1. Hero Section with Aerial Flood Image */}
       <section className="text-center space-y-6 max-w-3xl mx-auto pt-4 sm:pt-10">
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill bg-surface/90 border border-line backdrop-blur-md text-xs font-mono text-text-2 shadow-sm">
             <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-            <span>AI Flood Response &bull; Made for Real People</span>
+            <span>AI Flood Decision Intelligence &bull; Rivergate Basin</span>
           </div>
 
-          <h1 className="font-heading font-bold text-4xl sm:text-6xl text-text tracking-tight leading-none">
-            Rakshak
+          <h1 className="font-heading font-black text-5xl sm:text-7xl text-text tracking-wider leading-none uppercase">
+            RAKSHAK
           </h1>
-          <p className="font-devanagari text-lg sm:text-xl text-accent font-medium tracking-wide">
-            रक्षक
-          </p>
+          <div className="flex items-center justify-center gap-2.5 pt-1">
+            <span className="font-devanagari font-black text-2xl sm:text-3xl bg-gradient-to-r from-accent via-accent-2 to-accent bg-clip-text text-transparent tracking-widest leading-normal drop-shadow-[0_0_20px_rgba(127,181,176,0.35)]">
+              रक्षक
+            </span>
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-pill bg-accent/15 text-accent border border-accent/30 font-bold uppercase tracking-wider">
+              Decisive AI
+            </span>
+          </div>
 
-          <p className="font-italic-accent text-2xl sm:text-3xl text-text-2 max-w-xl mx-auto leading-relaxed">
+          <p className="font-italic-accent text-2xl sm:text-3xl text-text-2 max-w-xl mx-auto leading-relaxed pt-2">
             &ldquo;Decide faster than the water rises.&rdquo;
           </p>
         </div>
