@@ -92,7 +92,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 2. Interactive Mini-Demo: Tap a ward and watch ripple cascade */}
-      <section className="p-6 sm:p-8 rounded-panel bg-surface/90 backdrop-blur-md border border-line shadow-calm space-y-6 card-3d">
+      <section className="p-6 sm:p-8 rounded-panel bg-surface/90 backdrop-blur-md border border-line shadow-calm space-y-6">
         <div className="text-center space-y-1.5 max-w-xl mx-auto">
           <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
             How The AI Helps
