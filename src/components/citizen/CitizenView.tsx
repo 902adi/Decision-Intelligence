@@ -51,27 +51,27 @@ export const CitizenView: React.FC = () => {
 
   const wardName = language === 'hi' ? ward.nameHi : language === 'mr' ? ward.nameMr : ward.name;
 
-  // Plain-language status text based on risk category
+  // Plain-language decisive verdict based on risk category
   let statusBadge = "Safe & Dry";
   let statusColor = 'text-low border-low/40 bg-low/10';
   let patternClass = colorblindSafe ? 'pattern-low' : '';
-  let statusExplanation = `${wardName}: Water level is normal. It is safe to stay at home right now.`;
+  let statusExplanation = `Stay indoors — water is safe. All roads around ${wardName} remain clear and dry.`;
 
   if (wardRisk.riskCategory === 'crit') {
-    statusBadge = "High Danger";
+    statusBadge = "Critical Danger";
     statusColor = 'text-crit border-crit/40 bg-crit/15';
     patternClass = colorblindSafe ? 'pattern-crit' : '';
-    statusExplanation = `${wardName}: Water is deep (${wardRisk.waterLevelMeters}m). Walk along high ground to ${route?.campName || 'Relief Camp'} (${route?.estimatedWalkMinutes || 12} mins).`;
+    statusExplanation = `Move to second floor or evacuate to ${route?.campName || 'Relief Camp'} now. Street water is deep (${wardRisk.waterLevelMeters}m).`;
   } else if (wardRisk.riskCategory === 'high') {
     statusBadge = "Rising Water";
     statusColor = 'text-high border-high/40 bg-high/15';
     patternClass = colorblindSafe ? 'pattern-high' : '';
-    statusExplanation = `${wardName}: Water is rising near streets. Pack an emergency bag and prepare to move to ${route?.campName || 'Relief Camp'}.`;
+    statusExplanation = `Prepare emergency kit and stay alert. Water is rising on ground floors near ${wardName}.`;
   } else if (wardRisk.riskCategory === 'mod') {
-    statusBadge = "Watch Water";
+    statusBadge = "Heavy Rain Alert";
     statusColor = 'text-mod border-mod/40 bg-mod/15';
     patternClass = colorblindSafe ? 'pattern-mod' : '';
-    statusExplanation = `${wardName}: Rain is heavy and puddles are deep. Stay inside and keep your phone charged.`;
+    statusExplanation = `Stay indoors and avoid basement areas. Heavy rain is active across ${wardName}.`;
   }
 
   // Checklist items in plain simple English

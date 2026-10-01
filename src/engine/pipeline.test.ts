@@ -63,4 +63,34 @@ describe('Rakshak AI Decision Pipeline Determinism & Logic', () => {
     expect(routeWard1.toCampId).toBeDefined();
     expect(routeWard1.estimatedWalkMinutes).toBeGreaterThan(0);
   });
+
+  it('runs Monte Carlo simulation and outputs single decisive verdict and cost of delay', () => {
+    const result = runDecisionPipeline({
+      rainfallMmH: 140,
+      riverLevelRiseMeters: 2.8,
+      timeHour: 2,
+    });
+
+    // 1. Verdict structure
+    expect(result.verdict).toBeDefined();
+    expect(result.verdict.headline).toBeTruthy();
+    expect(result.verdict.topActionCommand).toBeTruthy();
+    expect(result.verdict.confidencePct).toBeGreaterThan(0);
+    expect(result.verdict.confidencePct).toBeLessThanOrEqual(100);
+    expect(['High', 'Medium', 'Low']).toContain(result.verdict.confidenceLabel);
+
+    // 2. Cost of delay monotonicity / degradation
+    expect(result.verdict.costOfDelay.now).toBeGreaterThanOrEqual(result.verdict.costOfDelay.plus60);
+
+    // 3. Action queue grouping
+    expect(result.actionQueue).toBeDefined();
+    expect(result.actionQueue.now.length).toBeGreaterThan(0);
+    expect(result.actionQueue.next.length).toBeGreaterThan(0);
+    expect(result.actionQueue.watch.length).toBeGreaterThan(0);
+
+    // 4. Direct commands (no 'consider' or 'you may want to')
+    expect(result.verdict.topActionCommand.toLowerCase()).not.toContain('consider');
+    expect(result.verdict.topActionCommand.toLowerCase()).not.toContain('you may want');
+  });
 });
+

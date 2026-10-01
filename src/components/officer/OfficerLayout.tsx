@@ -3,7 +3,8 @@ import { useAppStore, OfficerTab } from '../../store/useAppStore';
 import { Map, LifeBuoy, CloudRain, FileText, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CitySvgMap } from './CitySvgMap';
-import { RecommendedActions } from './RecommendedActions';
+import { DecisionBrief } from './DecisionBrief';
+import { ActionQueue } from './ActionQueue';
 import { SosQueuePanel } from './SosQueuePanel';
 import { ForecastView } from './ForecastView';
 import { DecisionLogView } from './DecisionLogView';
@@ -155,14 +156,20 @@ export const OfficerLayout: React.FC = () => {
             className="h-full"
           >
             {officerTab === 'map' && (
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-0 h-full">
-                {/* Left: Full map */}
-                <div className="p-4 lg:border-r border-line">
-                  <CitySvgMap />
-                </div>
-                {/* Right: Slim AI actions panel */}
-                <div className="p-4 overflow-y-auto max-h-[calc(100vh-11rem)]">
-                  <RecommendedActions />
+              <div className="p-4 sm:p-6 max-w-7xl mx-auto space-y-5">
+                {/* 1. DECISION BRIEF (Top of Command Center, first thing seen) */}
+                <DecisionBrief />
+
+                {/* 2. Map and Action Queue Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-5 items-start">
+                  {/* Left: Full Interactive City Map */}
+                  <div className="bg-surface rounded-panel border border-line p-4 shadow-sm">
+                    <CitySvgMap />
+                  </div>
+                  {/* Right: Decisive Action Queue (NOW / NEXT / WATCH) */}
+                  <div className="bg-surface rounded-panel border border-line p-4 shadow-sm overflow-y-auto max-h-[760px]">
+                    <ActionQueue />
+                  </div>
                 </div>
               </div>
             )}

@@ -8,6 +8,7 @@ import {
   rivergateResources, 
   rivergateCamps 
 } from '../data/rivergate';
+import { runMonteCarloSimulation, Verdict, ActionQueueItem } from './monteCarlo';
 
 export type RiskCategory = 'low' | 'mod' | 'high' | 'crit';
 
@@ -93,6 +94,12 @@ export interface DecisionGraphState {
   criticalWardsCount: number;
   assetsDeployedCount: number;
   campCapacityUsedPercent: number;
+  verdict: Verdict;
+  actionQueue: {
+    now: ActionQueueItem[];
+    next: ActionQueueItem[];
+    watch: ActionQueueItem[];
+  };
 }
 
 export interface SimulationParams {
@@ -596,6 +603,17 @@ export function runDecisionPipeline(
   else if (rainfallMmH < 80) scenarioId = 'heavy_rain';
   else if (riverLevelRiseMeters > 3.5) scenarioId = 'dam_release';
 
+  // Run Monte Carlo simulation across 500 scenarios
+  const topWardObj = highestWard ? rivergateWards.find(w => w.id === highestWard.wardId) : undefined;
+  const mcResult = runMonteCarloSimulation(
+    rainfallMmH,
+    riverLevelRiseMeters,
+    peopleAtRiskCount,
+    criticalWardsCount,
+    topWardObj ? `Ward ${topWardObj.number} (${topWardObj.name})` : 'Ward 4 (Shivaji Nagar)',
+    'Camp B (Greenfield Stadium)'
+  );
+
   return {
     rainfallMmH,
     riverLevelRiseMeters,
@@ -611,5 +629,7 @@ export function runDecisionPipeline(
     criticalWardsCount,
     assetsDeployedCount: 7,
     campCapacityUsedPercent,
+    verdict: mcResult.verdict,
+    actionQueue: mcResult.actionQueue,
   };
 }
