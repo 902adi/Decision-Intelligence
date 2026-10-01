@@ -9,14 +9,6 @@ interface I18nState {
 }
 
 const getInitialLanguage = (): Language => {
-  if (typeof window === 'undefined') return 'en';
-  const saved = localStorage.getItem('rakshak_language') as Language;
-  if (saved && (saved === 'en' || saved === 'hi' || saved === 'mr')) {
-    return saved;
-  }
-  const browserLang = navigator.language.toLowerCase();
-  if (browserLang.startsWith('hi')) return 'hi';
-  if (browserLang.startsWith('mr')) return 'mr';
   return 'en';
 };
 

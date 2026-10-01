@@ -108,7 +108,7 @@ export const ForecastView: React.FC = () => {
           <tbody className="divide-y divide-line/60 font-mono">
             {rivergateWards.map((w) => {
               const wr = graph.wardRisks[w.id];
-              const wardTitle = language === 'hi' ? w.nameHi : language === 'mr' ? w.nameMr : w.name;
+              const wardTitle = w.name;
               return (
                 <tr key={w.id} className="hover:bg-surface-2/60 transition-colors">
                   <td className="py-2.5 pr-3 font-sans font-medium text-text">

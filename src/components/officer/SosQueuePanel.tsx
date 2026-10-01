@@ -79,7 +79,7 @@ export const SosQueuePanel: React.FC = () => {
             const ward = rivergateWards.find(w => w.id === sos.wardId);
             const priorityScore = calculatePriorityScore(sos);
             const isWhyOpen = expandedWhyId === sos.id;
-            const wardName = language === 'hi' ? ward?.nameHi : language === 'mr' ? ward?.nameMr : ward?.name;
+            const wardName = ward?.name;
 
             return (
               <div 

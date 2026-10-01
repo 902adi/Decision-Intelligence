@@ -149,7 +149,7 @@ export const ReportProblemModal: React.FC<Props> = ({ isOpen, onClose }) => {
               >
                 {rivergateWards.map((w) => (
                   <option key={w.id} value={w.id}>
-                    Ward {w.number}: {language === 'hi' ? w.nameHi : language === 'mr' ? w.nameMr : w.name}
+                    Ward {w.number}: {w.name}
                   </option>
                 ))}
               </select>

@@ -17,7 +17,7 @@ export const SafeRouteModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const currentWard = rivergateWards.find(w => w.id === selectedWardId) || rivergateWards[0];
   const route = graph.evacuationRoutes[selectedWardId];
-  const wardName = language === 'hi' ? currentWard.nameHi : language === 'mr' ? currentWard.nameMr : currentWard.name;
+  const wardName = currentWard.name;
 
   return (
     <div 
