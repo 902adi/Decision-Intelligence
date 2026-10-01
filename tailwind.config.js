@@ -26,8 +26,9 @@ export default {
         sos: 'var(--sos)',
       },
       fontFamily: {
-        heading: ['"Space Grotesk"', 'sans-serif'],
-        sans: ['Inter', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        heading: ['Outfit', '"Space Grotesk"', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'sans-serif'],
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
         devanagari: ['"Noto Sans Devanagari"', 'sans-serif'],

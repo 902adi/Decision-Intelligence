@@ -208,9 +208,11 @@ export const DecisionBrief: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-2.5 pt-1">
             <div className="flex items-center gap-2">
               {/* Approve and Execute Button */}
-              <button
+              <motion.button
                 onClick={handleApprove}
                 disabled={isApproved}
+                whileHover={!isApproved ? { scale: 1.02 } : {}}
+                whileTap={!isApproved ? { scale: 0.98 } : {}}
                 className={`px-4 py-2 rounded-control text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm cursor-pointer ${
                   isApproved
                     ? 'bg-low/20 text-low border border-low/40 cursor-default'
@@ -219,26 +221,30 @@ export const DecisionBrief: React.FC = () => {
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{isApproved ? 'Approved & En route' : 'Approve and execute'}</span>
-              </button>
+              </motion.button>
 
               {/* Override Button */}
-              <button
+              <motion.button
                 onClick={() => { playClickSound(); setIsOverriding(!isOverriding); }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="px-3.5 py-2 rounded-control bg-surface-2 hover:bg-surface-3 text-text-2 hover:text-text text-xs font-medium transition-colors border border-line cursor-pointer flex items-center gap-1.5"
               >
                 <XCircle className="w-3.5 h-3.5" />
                 <span>Override</span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Why this decision? Button */}
-            <button
+            <motion.button
               onClick={() => { playClickSound(); setIsWhyModalOpen(true); }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               className="px-3.5 py-2 rounded-control bg-accent/10 hover:bg-accent/20 text-accent text-xs font-semibold transition-colors border border-accent/30 cursor-pointer flex items-center gap-1.5"
             >
               <HelpCircle className="w-3.5 h-3.5" />
               <span>Why this decision?</span>
-            </button>
+            </motion.button>
           </div>
 
           {/* Inline Override Form */}

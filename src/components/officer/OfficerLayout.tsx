@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppStore, OfficerTab } from '../../store/useAppStore';
-import { Map, LifeBuoy, CloudRain, FileText, LogOut } from 'lucide-react';
+import { Map, LifeBuoy, CloudRain, FileText, LogOut, Zap, CloudLightning } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CitySvgMap } from './CitySvgMap';
 import { DecisionBrief } from './DecisionBrief';
@@ -9,12 +9,10 @@ import { SosQueuePanel } from './SosQueuePanel';
 import { ForecastView } from './ForecastView';
 import { DecisionLogView } from './DecisionLogView';
 import { AnimatedBackground } from '../common/AnimatedBackground';
-import { playClickSound } from '../../utils/soundEffects';
-
+import { playClickSound, playPhenomenonSound } from '../../utils/soundEffects';
+import { playCalmDistantThunder } from '../weather/thunderAudio';
 
 /* ─── Scenario presets ────────────────────────────────────────────── */
-import { playPhenomenonSound } from '../../utils/soundEffects';
-
 const SCENARIOS = [
   { id: 'normal_day',      label: 'Normal',      rain: 15  },
   { id: 'heavy_rain',      label: 'Heavy Rain',  rain: 65  },
@@ -24,26 +22,41 @@ const SCENARIOS = [
 
 /* ─── Tabs ─────────────────────────────────────────────────────────── */
 const TABS: Array<{ id: OfficerTab; label: string; icon: any }> = [
-  { id: 'map',     label: 'Map',     icon: Map },
-  { id: 'sos',     label: 'SOS',     icon: LifeBuoy },
-  { id: 'weather', label: 'Weather', icon: CloudRain },
-  { id: 'log',     label: 'Log',     icon: FileText },
+  { id: 'map',     label: 'Command Map', icon: Map },
+  { id: 'sos',     label: 'SOS Queue',   icon: LifeBuoy },
+  { id: 'weather', label: 'Forecast',    icon: CloudRain },
+  { id: 'log',     label: 'Audit Log',   icon: FileText },
 ];
 
 /* ─── Component ─────────────────────────────────────────────────────── */
 export const OfficerLayout: React.FC = () => {
+  const [enableThunderstorm, setEnableThunderstorm] = useState(false);
   const {
     officerTab, setOfficerTab,
     sosRequests, officerProfile, logoutOfficer,
-    rainfallMmH, setRainfall, graph,
+    rainfallMmH, setRainfall, graph, showToast
   } = useAppStore();
 
   const activeSos = sosRequests.filter(s => s.status !== 'resolved').length;
 
+  const handleToggleThunderstorm = () => {
+    playClickSound();
+    const nextState = !enableThunderstorm;
+    setEnableThunderstorm(nextState);
+    if (nextState) {
+      playCalmDistantThunder();
+      showToast('Thunderstorm visual simulation active', 'info');
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)] bg-bg relative">
-      {/* Ambient background: rain + orbs, dimmed for officer context */}
-      <AnimatedBackground rainfallMmH={rainfallMmH} section="officer" />
+      {/* Ambient background: rain + orbs + lightning flashes */}
+      <AnimatedBackground 
+        rainfallMmH={rainfallMmH} 
+        section="officer" 
+        enableThunderstorm={enableThunderstorm}
+      />
 
       {/* ── Top Status Bar ─────────────────────────────────────────── */}
       <div className="flex items-center justify-between px-5 py-2.5 border-b border-line bg-surface/60 backdrop-blur-sm">
@@ -94,6 +107,20 @@ export const OfficerLayout: React.FC = () => {
               );
             })}
           </div>
+
+          {/* Thunderstorm simulation toggle */}
+          <button
+            onClick={handleToggleThunderstorm}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-pill text-[11px] font-mono font-semibold transition-all border cursor-pointer ${
+              enableThunderstorm || rainfallMmH >= 110
+                ? 'bg-accent/20 text-accent border-accent/40 shadow-xs'
+                : 'bg-surface-2 text-text-2 border-line hover:text-text'
+            }`}
+            title="Toggle Thunderstorm Effects"
+          >
+            <CloudLightning className="w-3.5 h-3.5 text-accent animate-pulse" />
+            <span className="hidden sm:inline">Storm FX</span>
+          </button>
 
           {/* Officer name + logout */}
           {officerProfile && (

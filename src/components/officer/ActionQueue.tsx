@@ -92,9 +92,11 @@ export const ActionQueue: React.FC = () => {
         </div>
 
         {nextActions.map((item) => (
-          <div
+          <motion.div
             key={item.id}
-            className="p-3 rounded-control bg-surface-2/70 border border-line space-y-1.5"
+            whileHover={{ scale: 1.01, borderColor: 'var(--accent)' }}
+            transition={{ duration: 0.15 }}
+            className="p-3 rounded-control bg-surface-2/70 border border-line space-y-1.5 transition-colors cursor-pointer"
           >
             <div className="flex items-start justify-between gap-2">
               <p className="text-xs font-semibold text-text leading-snug">
@@ -112,7 +114,7 @@ export const ActionQueue: React.FC = () => {
             <div className="flex items-center justify-between text-[10px] font-mono text-accent pt-0.5">
               <span>Impact: {item.estimatedImpact}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -129,12 +131,14 @@ export const ActionQueue: React.FC = () => {
         </div>
 
         {watchActions.map((item) => (
-          <div
+          <motion.div
             key={item.id}
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.15 }}
             className={`p-3 rounded-control border transition-colors space-y-2 ${
               item.isFired
                 ? 'bg-crit/10 border-crit/40'
-                : 'bg-surface-2/50 border-line'
+                : 'bg-surface-2/50 border-line hover:border-accent/30'
             }`}
           >
             <div className="flex items-start justify-between gap-2">

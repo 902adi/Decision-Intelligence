@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppStore } from './store/useAppStore';
 import { WeatherCanvas } from './components/weather/WeatherCanvas';
 import { Header } from './components/common/Header';
@@ -10,10 +10,12 @@ import { SettingsModal } from './components/common/SettingsModal';
 import { HelplinesModal, FloatingSosButton } from './components/common/HelplinesModal';
 import { TwoDeviceDemoModal } from './components/common/TwoDeviceDemoModal';
 import { CitizenPrivacyConsent } from './components/citizen/CitizenPrivacyConsent';
+import { RakshakIntroBoot } from './components/common/RakshakIntroBoot';
 import { AlertCircle, CheckCircle2, Info, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const App: React.FC = () => {
+  const [isBooting, setIsBooting] = useState(true);
   const { 
     mode, 
     setMode, 
@@ -42,6 +44,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen relative bg-bg text-text transition-colors duration-300 font-sans selection:bg-accent/20 selection:text-accent">
+      {/* Starting UI animation of Rakshak on first open/reload */}
+      {isBooting && <RakshakIntroBoot onComplete={() => setIsBooting(false)} />}
+
       {/* Signature Feature: Living Weather Canvas */}
       <WeatherCanvas 
         opacity={
