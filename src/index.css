@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark Theme (Default) */
+    --bg: #0D131D;
+    --surface: #141C29;
+    --surface-2: #1B2536;
+    --line: #263247;
+    --text: #E4E9F2;
+    --text-2: #96A3BA;
+    --accent: #7FB5B0;
+    --accent-2: #8C97C9;
+    --water: #5E8FB5;
+    
+    /* Risk Colors (Only for risk data) */
+    --low: #78B697;
+    --mod: #D4B06C;
+    --high: #D68D63;
+    --crit: #C4636E;
+
+    /* Emergency SOS (Only for emergency actions) */
+    --sos: #B5484F;
+  }
+
+  html.light {
+    /* Light Theme */
+    --bg: #F3F5F8;
+    --surface: #FFFFFF;
+    --surface-2: #EBEFF4;
+    --line: #D9DFE8;
+    --text: #172033;
+    --text-2: #5A667D;
+    --accent: #3F7F7A;
+    --accent-2: #5B67A8;
+    --water: #4B789B;
+    
+    /* Risk Colors (Light mode adjusted for WCAG AA) */
+    --low: #2D7A54;
+    --mod: #966C15;
+    --high: #B35222;
+    --crit: #A03843;
+
+    /* Emergency SOS */
+    --sos: #A83A42;
+  }
+
+  /* Text size adjustment classes */
+  html[data-text-size="small"] {
+    font-size: 14px;
+  }
+  html[data-text-size="normal"] {
+    font-size: 16px;
+  }
+  html[data-text-size="large"] {
+    font-size: 18px;
+  }
+
+  /* Tabular numbers for all stats & timers */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Specific typography styling for Devanagari script */
+  :lang(hi), :lang(mr) {
+    font-family: 'Noto Sans Devanagari', 'Inter', system-ui, sans-serif;
+    line-height: 1.62;
+  }
+
+  /* Smooth scrolling and focus outline */
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Colorblind Patterns */
+.pattern-low {
+  background-image: radial-gradient(var(--low) 1.5px, transparent 1.5px);
+  background-size: 8px 8px;
+}
+
+.pattern-mod {
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, var(--mod) 4px, var(--mod) 6px);
+}
+
+.pattern-high {
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 4px, var(--high) 4px, var(--high) 7px);
+}
+
+.pattern-crit {
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, var(--crit) 4px, var(--crit) 7px),
+                    repeating-linear-gradient(90deg, transparent, transparent 4px, var(--crit) 4px, var(--crit) 7px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-2);
+}
+
+/* 3D Visuals & Hover Effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.card-3d {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: translateY(-4px) rotateX(1.5deg) scale(1.008);
+}
+
+/* Light theme specific refined hover glow */
+html.light .card-3d:hover {
+  box-shadow: 0 12px 30px -4px rgba(63, 127, 122, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+  border-color: rgba(63, 127, 122, 0.45);
+}
+
+html.dark .card-3d:hover {
+  box-shadow: 0 14px 35px -6px rgba(0, 0, 0, 0.4), 0 0 20px -2px rgba(127, 181, 176, 0.15);
+  border-color: rgba(127, 181, 176, 0.45);
+}
+
+/* Glassmorphic sheen */
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Elegant italic serif accent */
+.font-italic-accent {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ── Background Ambient Animations ────────────────────────────────── */
+
+@keyframes rain-fall {
+  0%   { transform: translateY(-20px) translateX(0);   opacity: 0; }
+  8%   { opacity: 0.55; }
+  92%  { opacity: 0.45; }
+  100% { transform: translateY(110vh) translateX(8px); opacity: 0; }
+}
+
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0)      scale(1);    }
+  33%  { transform: translate(28px, -20px) scale(1.07); }
+  66%  { transform: translate(-20px, 16px) scale(0.95); }
+  100% { transform: translate(0, 0)      scale(1);    }
+}
+
+@keyframes orb-drift-2 {
+  0%   { transform: translate(0, 0)       scale(1);    }
+  40%  { transform: translate(-32px, 22px) scale(1.09); }
+  80%  { transform: translate(18px, -14px) scale(0.93); }
+  100% { transform: translate(0, 0)       scale(1);    }
+}
+
+@keyframes shimmer-sweep {
+  0%   { opacity: 0;    transform: translateX(-120%); }
+  50%  { opacity: 0.18; }
+  100% { opacity: 0;    transform: translateX(120%); }
+}
+
+.rain-drop {
+  position: absolute;
+  top: -20px;
+  width: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, var(--water));
+  animation: rain-fall linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orb-drift ease-in-out infinite;
+  will-change: transform;
+}
+
+.bg-orb-2 {
+  animation-name: orb-drift-2;
+}
