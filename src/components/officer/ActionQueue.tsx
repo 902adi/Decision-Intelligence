@@ -169,7 +169,7 @@ export const ActionQueue: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

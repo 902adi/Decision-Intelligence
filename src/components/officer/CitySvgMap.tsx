@@ -324,17 +324,16 @@ export const CitySvgMap: React.FC = () => {
 
             {/* Road Network */}
             {showRoads && (
-              <g strokeLinecap="round">
+              <g strokeLinecap="round" strokeLinejoin="round">
                 {rivergateRoads.map((r) => {
                   const status = graph.roadsStatus[r.id];
                   const isFlooded = status?.isFlooded;
+                  const pointsStr = r.pathPoints.map(p => `${p[0]},${p[1]}`).join(' ');
                   return (
-                    <line
+                    <polyline
                       key={r.id}
-                      x1={r.from[0]}
-                      y1={r.from[1]}
-                      x2={r.to[0]}
-                      y2={r.to[1]}
+                      points={pointsStr}
+                      fill="none"
                       stroke={isFlooded ? 'var(--crit)' : 'rgba(150, 163, 186, 0.35)'}
                       strokeWidth={isFlooded ? 3 : 1.5}
                       strokeDasharray={isFlooded ? '4 2' : 'none'}
@@ -348,7 +347,7 @@ export const CitySvgMap: React.FC = () => {
             {showCamps && (
               <g>
                 {rivergateCamps.map((camp) => (
-                  <g key={camp.id} transform={`translate(${camp.location[0]}, ${camp.location[1]})`}>
+                  <g key={camp.id} transform={`translate(${camp.coordinates.x}, ${camp.coordinates.y})`}>
                     <circle r="7" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.5" />
                     <circle r="3.5" fill="var(--accent)" />
                   </g>

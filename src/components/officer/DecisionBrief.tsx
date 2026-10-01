@@ -14,7 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
-import { playClickSound, playSosSound } from '../../utils/soundEffects';
+import { playClickSound, playAlertChime } from '../../utils/soundEffects';
 import { ExplainabilityModal } from './ExplainabilityModal';
 
 export const DecisionBrief: React.FC = () => {
